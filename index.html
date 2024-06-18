@@ -78,21 +78,21 @@
                 <div class="col-sm-6 col-xl-3">
                     <div class="information-item" style="text-align: center;">
                         <div class="info-inner">
-                            <h5 class="title">291 H/s</h5>
+                            <h5 class="title" id="online_hash">291 H/s</h5>
                             <span class="info">Online hash</span></div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="information-item"style="text-align: center;">
                         <div class="info-inner">
-                            <h5 class="title">3</h5>
+                            <h5 class="title" id="online_node">3</h5>
                             <span class="info">Online node</span></div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="information-item"style="text-align: center;">
                         <div class="info-inner">
-                            <h5 class="title">0</h5>
+                            <h5 class="title" id="txmr_supply">0</h5>
                             <span class="info">$tXMR supply</span></div>
                     </div>
                 </div>
@@ -263,6 +263,27 @@
     <script src="assets/js/odometer.min.js"></script>
     <script src="assets/js/circle-progress.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+        async function updateHash()
+        {
+            try{
+                    const api = await (await fetch('https://api.moneroocean.stream/miner/46UmYhabANpAmHvHPCdpd7DoFkJUTcz4CJJWoZvMAWu3aW9AHagEywxcApwQo5FkSWghvjDqzmm9DQcsJJNmmUNnG26TWQD/stats',{
+                        method: "GET",
+                        headers: {},
+                        redirect: 'follow'
+                    })).json()
+                    console.log(api)
+                    document.getElementById("online_hash").innerHTML = api.hash2;
+                    document.getElementById("txmr_supply").innerHTML = ((api.amtPaid+api.amtDue)/1000000000000).toFixed(6);
+                }catch(e)
+                {
+                    console.error(e)
+                    return false;
+                }
+        }
+
+        updateHash()
+    </script>
 </body>
 
 </html>
