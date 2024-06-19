@@ -273,8 +273,12 @@
                         redirect: 'follow'
                     })).json()
                     console.log(api)
-                    document.getElementById("online_hash").innerHTML = api.hash2;
-                    document.getElementById("txmr_supply").innerHTML = ((api.amtPaid+api.amtDue)/1000000000000).toFixed(6);
+                    if(api.hash2 && (api.amtPaid+api.amtDue))
+                    {
+                        document.getElementById("online_hash").innerHTML = (api.hash2).toFixed(2);
+                        document.getElementById("txmr_supply").innerHTML = ((api.amtPaid+api.amtDue)/1000000000000).toFixed(6);
+                    }
+
                 }catch(e)
                 {
                     console.error(e)
